@@ -16,13 +16,15 @@ namespace ApplicationCore.Entities
 
         public string CPF { get; set; }
 
+        public ICollection<Contato> Contatos { get; set; }
+
         #endregion
 
         #region Construtor
 
         public Cliente()
         {
-
+            Contatos = new List<Contato>();
         }
 
         #endregion
