@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ApplicationCore.Entities
 {
-    public class Cliente
+    public class Profissao
     {
         #region Propriedades
 
@@ -12,11 +12,9 @@ namespace ApplicationCore.Entities
 
         public string Nome { get; set; }
 
-        public string CPF { get; set; }
+        public string Descricao { get; set; }
 
-        public ICollection<Contato> Contatos { get; set; }
-
-        public Endereco Endereco { get; set; }
+        public string CBO { get; set; }
 
         public ICollection<ProfissaoCliente> ProfissaoClientes { get; set; }
 
@@ -24,9 +22,8 @@ namespace ApplicationCore.Entities
 
         #region Construtor
 
-        public Cliente()
+        public Profissao()
         {
-            Contatos = new List<Contato>();
             ProfissaoClientes = new List<ProfissaoCliente>();
         }
 

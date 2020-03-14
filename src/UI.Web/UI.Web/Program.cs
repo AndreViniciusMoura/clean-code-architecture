@@ -11,28 +11,32 @@ namespace UI.Web
     {
         public static void Main(string[] args)
         {
-            //CreateWebHostBuilder(args).Build().Run();
+            CreateWebHostBuilder(args).Build().Run();
 
-            var host = CreateWebHost(args);
+            //var host = CreateWebHost(args);
 
-            using (var scope = host.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
+            //using (var scope = host.Services.CreateScope())
+            //{
+            //    var services = scope.ServiceProvider;
 
-                try
-                {
-                    var context = services.GetRequiredService<DataBaseContext>();
-                    DbInitializer.Initialize(context);
-                }
-                catch (Exception ex)
-                {
-                    var logger = services.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "Um erro ocorreu no método seeding do contexto.");
-                }
-            }
+            //    try
+            //    {
+            //        var context = services.GetRequiredService<DataBaseContext>();
+            //        DbInitializer.Initialize(context);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        var logger = services.GetRequiredService<ILogger<Program>>();
+            //        logger.LogError(ex, "Um erro ocorreu no método seeding do contexto.");
+            //    }
+            //}
 
-            host.Run();
+            //host.Run();
         }
+
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                .UseStartup<Startup>();
 
         public static IWebHost CreateWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
