@@ -1,4 +1,5 @@
 ﻿using ApplicationCore.Entities;
+using Infrastructure.EntityFrameworkConfig;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data
@@ -38,128 +39,37 @@ namespace Infrastructure.Data
 
             #region Cliente
 
-            modelBuilder.Entity<Cliente>().ToTable("Cliente");
-
-            modelBuilder.Entity<Cliente>()
-                .HasKey(c => c.Id);
-
-            modelBuilder.Entity<Cliente>().Property(c => c.CPF)
-                .HasColumnType("varchar(11)")
-                .IsRequired();
-
-            modelBuilder.Entity<Cliente>().Property(c => c.Nome)
-                .HasColumnType("varchar(200)")
-                .IsRequired();
-
-            modelBuilder.Entity<Cliente>()
-                .HasMany(c => c.Contatos)
-                .WithOne(c => c.Cliente)
-                .HasForeignKey(c => c.ClienteId)
-                .HasPrincipalKey(c => c.Id);
+            modelBuilder.ApplyConfiguration(new ClienteMap());
 
             #endregion
 
             #region Contato
 
-            modelBuilder.Entity<Contato>().ToTable("Contato");
-
-            modelBuilder.Entity<Contato>()
-                .HasKey(c => c.Id);
-
-            modelBuilder.Entity<Contato>().Property(c => c.Nome)
-                .HasColumnType("varchar(200)")
-                .IsRequired();
-
-            modelBuilder.Entity<Contato>().Property(c => c.Email)
-                .HasColumnType("varchar(100)")
-                .IsRequired();
-
-            modelBuilder.Entity<Contato>().Property(c => c.Telefone)
-                .HasColumnType("varchar(15)");
-
-            modelBuilder.Entity<Contato>()
-                .HasOne(c => c.Cliente)
-                .WithMany(c => c.Contatos)
-                .HasForeignKey(c => c.ClienteId)
-                .HasPrincipalKey(c => c.Id);
+            modelBuilder.ApplyConfiguration(new ContatoMap());
 
             #endregion
 
             #region Profissão
 
-            modelBuilder.Entity<Profissao>().ToTable("Profissao");
-
-            modelBuilder.Entity<Profissao>()
-                .HasKey(p => p.Id);
-
-            modelBuilder.Entity<Profissao>().Property(p => p.Nome)
-                .HasColumnType("varchar(400)")
-                .IsRequired();
-
-            modelBuilder.Entity<Profissao>().Property(p => p.CBO)
-                .HasColumnType("varchar(400)")
-                .IsRequired();
-
-            modelBuilder.Entity<Profissao>().Property(p => p.Descricao)
-                .HasColumnType("varchar(1000)")
-                .IsRequired();
+            modelBuilder.ApplyConfiguration(new ProfissaoMap());
 
             #endregion
 
             #region Endereço
 
-            modelBuilder.Entity<Endereco>().ToTable("Endereco");
-
-            modelBuilder.Entity<Endereco>()
-                .HasKey(e => e.Id);
-
-            modelBuilder.Entity<Endereco>().Property(e => e.Bairro)
-                .HasColumnType("varchar(200)")
-                .IsRequired();
-
-            modelBuilder.Entity<Endereco>().Property(e => e.CEP)
-                .HasColumnType("varchar(15)")
-                .IsRequired();
-
-            modelBuilder.Entity<Endereco>().Property(e => e.Logradouro)
-                .HasColumnType("varchar(200)")
-                .IsRequired();
-
-            modelBuilder.Entity<Endereco>().Property(e => e.Referencia)
-                .HasColumnType("varchar(400)");
+            modelBuilder.ApplyConfiguration(new EnderecoMap());
 
             #endregion
 
             #region Profissao Cliente
 
-            modelBuilder.Entity<ProfissaoCliente>().ToTable("ProfissaoCliente");
-
-            modelBuilder.Entity<ProfissaoCliente>()
-                .HasKey(pc => pc.Id);
-
-            modelBuilder.Entity<ProfissaoCliente>()
-                .HasOne(pc => pc.Cliente)
-                .WithMany(c => c.ProfissaoClientes)
-                .HasForeignKey(c => c.ClienteId);
-
-            modelBuilder.Entity<ProfissaoCliente>()
-                .HasOne(pc => pc.Profissao)
-                .WithMany(c => c.ProfissaoClientes)
-                .HasForeignKey(c => c.ProfissaoId);
+            modelBuilder.ApplyConfiguration(new ProfissaoClienteMap());
 
             #endregion
 
             #region Menu
 
-            modelBuilder.Entity<Menu>().ToTable("Menu");
-
-            modelBuilder.Entity<Menu>()
-                .HasKey(m => m.Id);
-
-            modelBuilder.Entity<Menu>()
-                .HasMany(m => m.SubMenu)
-                .WithOne()
-                .HasForeignKey(m => m.MenuId);
+            modelBuilder.ApplyConfiguration(new MenuMap());
 
             #endregion
 
